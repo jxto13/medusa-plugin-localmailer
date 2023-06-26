@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    ul {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Order Confirmation</h1>
+    <p>Dear <%= customer.first_name %>,</p>
+    <p>Thank you for your order!</p>
+    <h2>Order Details</h2>
+    <p><strong>Order ID:</strong> <%= id %></p>
+    <p><strong>Order Date:</strong> <%= created_at.toISOString() %></p>
+    <p><strong>Shipping Address:</strong></p>
+    <p>
+      <%= shipping_address.first_name %> <%= shipping_address.last_name %><br>
+      <%= shipping_address.address_line_1 %><br>
+      <%= shipping_address.address_line_2 ? shipping_address.address_line_2 + '<br>' : '' %>
+      <%= shipping_address.city %>, <%= shipping_address.postal_code %><br>
+      <%= shipping_address.country %>
+    </p>
+    <p><strong>Items:</strong></p>
+    <ul>
+      <% items.forEach(function(item) { %>
+        <li>
+          <%= item.quantity %> x <%= item.title %> - <%= item.variant.title %>
+        </li>
+      <% }); %>
+    </ul>
+    <p><strong>Total Amount:</strong> <%= (total/ 100).toFixed(2) %></p>
+    <p>If you have any questions or concerns, please feel free to contact us.</p>
+    <p>Thank you again for your order!</p>
+  </div>
+</body>
+
+</html>
